@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {background-color: powderblue;border-style: outset;margin: 100px 250px;padding: 10px;}
+h1,input,p,form { text-align: center;}
+</style>
+<body onload="myFunction ()"> 
+
+<h1>Automated Parking System</h1>
+<br /><br />
+<p>
+Date: <input type="text" id="date"/>&emsp;&emsp;
+Location: <input type = "text" value= "Surrey"/>&emsp;&emsp;
+Time: <input type = "text" id="time"/><br /><br />
+</p>
+<script> 
+function myFunction() 
+{ 
+var today = new Date();
+document.getElementById('date').value=today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+document.getElementById('time').value=today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+}</script>
+
+<form action="/" method="POST" enctype="multipart/form-data">
+<div>
+    <input type="file" name="image" id="image" class="custom-file-input">
+    <label class="custome-file-label" for="image" >Select Image</label>
+</div>
+
+<a href="#" onclick="$('#imgupload').trigger('click'); return false;"></a><br /><br />
+Number of Hours: <input type = "text" id="hours" name="text" value={{hours}}/><br /><br /><br />
+<button type="submit" value="Submit">Submit</button><br /><br /><br />
+  
+Time In: <input type = "text" id="timein" value={{timein}}/>&emsp;
+Time Out: <input type = "text" id="timeout" value={{timeout}}/><br /><br />
+License Plate Number: <input type = "text" id="plate" value={{licensePlate}}/><br /><br />
+Total Payment($): <input type = "text" id="total" value={{price}}/><br /><br />
+</form>
+</body>
+</html>
