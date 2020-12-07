@@ -13,6 +13,7 @@ import time
 import os
 
 
+
 #print(current_time)
 import numpy as np
 import matplotlib.pyplot as plt
@@ -51,8 +52,17 @@ liscencePlateText = "Ac"
 
 
 app = Flask(__name__)
+#os.expand users
 path    = r"C:\Users\user\OneDrive - Douglas College\Applied_Research_Proj\image\uploads";
-app.config["IMAGE_UPLOADS"]= r"C:\Users\user\OneDrive - Douglas College\Applied_Research_Proj"
+#path =  R"% HOMEPATH %\image\uploads";
+path2 = R"% HOMEPATH %\image\uploads";
+exp_var = os.path.expandvars(path)
+exp_var2 = os.path.expandvars(path2)
+print("printing expanded path")
+print(exp_var)
+print(exp_var2)
+
+app.config["IMAGE_UPLOADS"]= exp_var
 @app.route('/',methods=["GET","POST"])
 def upload_image():
     
