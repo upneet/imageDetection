@@ -22,7 +22,7 @@ import pytesseract
 from IPython.display import Image
 import pymongo
 from pymongo import MongoClient
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+#pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 #database connection to mongoDB
 
 
@@ -53,10 +53,11 @@ liscencePlateText = "Ac"
 
 app = Flask(__name__)
 #os.expand users
-path    = r"C:\Users\user\OneDrive - Douglas College\Applied_Research_Proj\image\uploads";
+#path    = "C:\Users\user\OneDrive - Douglas College\Applied_Research_Proj\image\uploads";
+path="image/uploads"
 #path =  R"% HOMEPATH %\image\uploads";
 path2 = R"% HOMEPATH %\image\uploads";
-exp_var = os.path.expandvars(path)
+exp_var = os.path.expanduser(path)
 exp_var2 = os.path.expandvars(path2)
 print("printing expanded path")
 print(exp_var)
@@ -144,8 +145,9 @@ def upload_image():
             print(out_time)
             out_time = out_time.strftime("%H:%M:%S")
             #session[my_var] = liscencePlateText
-            myclient = pymongo.MongoClient("mongodb+srv://douglas:douglas@cluster0.1gfc0.mongodb.net")
-            myDb = myclient.CarParkingDatabase
+            myclient = pymongo.MongoClient("mongodb+srv://douglas:douglas@cluster0.1gfc0.mongodb.net/CarParkingDatabase?retryWrites=true&w=majority")
+            myDb = myclient.test
+            print("printing liscence text")
             print(liscencePlateText)
             mycol = myDb.Customers
             price = float(text)*1 + 0.5
@@ -165,7 +167,8 @@ def upload_image():
             #print("dbresult" + dbresult)
 
             print(full_path)
-            
+            print("printing database result")
+            print(dbresult)
             
 
             print(image)
@@ -195,7 +198,7 @@ def parking():
 
 
 if __name__ == "__main__":
-    app.run(port=5000,debug=True)
+    app.run(host="0.0.0.0",port=80)
 
 
 # In[2]:
@@ -240,7 +243,7 @@ curr_time_str = str(current_time)
 price_calc = 2 + 0.5*hours_user;
 
 print("Detected license plate Number is:",textLiscence)
-mycol = myDb.Customers
+#mycol = myDb.Customers
 myList = [{"id":id,
     "Car Registration Number" : textLiscence,
     "Date" : datetime.now(),
@@ -251,7 +254,7 @@ myList = [{"id":id,
 
 
 print(myList)
-result = mycol.insert(myList)
+#result = mycol.insert_one(myList)
 
 
 
